@@ -1,0 +1,32 @@
+---
+const features = [
+  { title: "Experienced Trainers", desc: "Learn from certified professionals with years of industry experience." },
+  { title: "Practical Training", desc: "100% hands-on sessions. We believe in learning by doing." },
+  { title: "Updated Syllabus", desc: "Curriculum designed to match current IT industry standards." },
+  { title: "Small Batches", desc: "Limited students per batch ensuring personalized attention." },
+  { title: "Affordable Fees", desc: "Premium education that doesn't break the bank. Installments available." },
+  { title: "Modern Computer Labs", desc: "High-speed internet and latest hardware for smooth practice." }
+];
+---
+<section id="why-us" class="py-24 px-6 bg-canvas border-t border-hairline">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-16 text-center">
+      <h2 class="text-xs font-mono uppercase tracking-widest text-mute mb-4">Why Choose Us</h2>
+      <h3 class="text-3xl md:text-4xl font-semibold tracking-tight text-ink">
+        The Britech Advantage.
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map(f => (
+        <div class="group bg-canvas-elevated border border-hairline rounded-md p-6 hover:border-mute transition-colors duration-300">
+          <div class="flex items-center gap-4 mb-3">
+            <div class="w-8 h-8 rounded-full bg-canvas border border-hairline flex items-center justify-center text-ink font-bold">✓</div>
+            <h4 class="text-base font-semibold text-ink">{f.title}</h4>
+          </div>
+          <p class="text-sm text-body pl-12">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

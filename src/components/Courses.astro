@@ -1,0 +1,142 @@
+---
+const courses = [
+  {
+    id: "pgadca",
+    title: "PGADCA",
+    desc: "Post Graduate Advance Diploma in Computer Applications. Master software development, web technologies, and database management.",
+    duration: "12 Months",
+    eligibility: "Graduate",
+    level: "Advanced",
+    mode: "Offline / Online",
+    fee: "₹15,000"
+  },
+  {
+    id: "adca",
+    title: "ADCA",
+    desc: "Advance Diploma in Computer Applications. Comprehensive training in basic computing, programming, and financial accounting.",
+    duration: "12 Months",
+    eligibility: "10th / 12th Pass",
+    level: "Beginner to Intermediate",
+    mode: "Offline",
+    fee: "₹12,000"
+  },
+  {
+    id: "tally",
+    title: "Tally Prime with GST",
+    desc: "Industry-standard financial accounting software training with practical GST implementation and payroll management.",
+    duration: "3 Months",
+    eligibility: "12th Commerce / Any Graduate",
+    level: "Intermediate",
+    mode: "Offline",
+    fee: "₹5,000"
+  }
+];
+---
+<section id="courses" class="py-24 px-6 bg-canvas border-t border-hairline relative">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-16 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div>
+        <h2 class="text-xs font-mono uppercase tracking-widest text-mute mb-4">Our Programs</h2>
+        <h3 class="text-3xl md:text-4xl font-semibold tracking-tight text-ink">
+          Industry-focused computer courses.
+        </h3>
+      </div>
+      <div class="flex gap-2">
+        <input type="text" placeholder="Search courses..." class="px-4 py-2 bg-canvas-elevated border border-hairline rounded-sm text-sm text-ink focus:outline-none focus:border-mute transition-colors" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {courses.map(course => (
+        <div class="group bg-canvas-elevated border border-hairline rounded-md p-6 hover:border-mute transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col h-full">
+          {/* Placeholder for Course Image */}
+          <div class="w-full aspect-video bg-canvas border border-hairline rounded-sm mb-6 flex items-center justify-center">
+             <span class="text-xs font-mono text-mute">[{course.id}-icon.jpg]</span>
+          </div>
+          
+          <h4 class="text-xl font-semibold text-ink mb-2">{course.title}</h4>
+          <p class="text-sm text-body leading-relaxed mb-6 flex-grow">{course.desc}</p>
+          
+          <div class="space-y-2 mb-6 text-sm text-ink">
+            <div class="flex justify-between border-b border-hairline pb-2">
+              <span class="text-mute">Duration</span>
+              <span class="font-medium">{course.duration}</span>
+            </div>
+            <div class="flex justify-between border-b border-hairline pb-2">
+              <span class="text-mute">Mode</span>
+              <span class="font-medium">{course.mode}</span>
+            </div>
+            <div class="flex justify-between border-b border-hairline pb-2">
+              <span class="text-mute">Eligibility</span>
+              <span class="font-medium">{course.eligibility}</span>
+            </div>
+            <div class="flex justify-between pt-1">
+              <span class="text-mute">Fee</span>
+              <span class="font-medium text-primary">{course.fee}</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2 mt-auto">
+            <button class="w-full px-4 py-2 text-sm font-medium text-ink bg-canvas-elevated border border-hairline rounded-sm hover:bg-canvas transition-colors" onclick={`document.getElementById('modal-${course.id}').showModal()`}>
+              View Details
+            </button>
+            <a href={`#contact?course=${course.id}`} class="w-full px-4 py-2 text-sm font-medium text-center text-on-primary bg-primary rounded-sm hover:opacity-90 transition-opacity">
+              Enroll Now
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Course Modals */}
+{courses.map(course => (
+  <dialog id={`modal-${course.id}`} class="w-full max-w-3xl bg-canvas-elevated rounded-lg shadow-2xl border border-hairline p-0 backdrop:bg-ink/50 backdrop:backdrop-blur-sm">
+    <div class="p-8">
+      <div class="flex justify-between items-start mb-6">
+        <h3 class="text-2xl font-semibold text-ink">{course.title} Details</h3>
+        <button onclick={`document.getElementById('modal-${course.id}').close()`} class="p-2 text-mute hover:text-ink">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      
+      <div class="space-y-6 text-sm text-body">
+        <div>
+          <h4 class="font-medium text-ink mb-2">Overview</h4>
+          <p>{course.desc} Learn through practical assignments and real-world projects.</p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-canvas p-4 rounded-sm border border-hairline">
+            <h4 class="font-medium text-ink text-xs uppercase mb-1">What You'll Learn</h4>
+            <ul class="list-disc list-inside space-y-1 mt-2">
+              <li>Module 1 Basics</li>
+              <li>Module 2 Advanced</li>
+              <li>Module 3 Practical</li>
+            </ul>
+          </div>
+          <div class="bg-canvas p-4 rounded-sm border border-hairline">
+            <h4 class="font-medium text-ink text-xs uppercase mb-1">Career Opportunities</h4>
+            <ul class="list-disc list-inside space-y-1 mt-2">
+              <li>IT Support Executive</li>
+              <li>Data Entry Operator</li>
+              <li>Office Assistant</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-medium text-ink mb-2">Certification</h4>
+          <p>Government recognized certificate awarded upon successful completion of the final assessment.</p>
+        </div>
+      </div>
+      
+      <div class="mt-8 flex gap-3">
+        <a href="#contact" onclick={`document.getElementById('modal-${course.id}').close()`} class="px-6 py-2 text-sm font-medium text-on-primary bg-primary rounded-sm">Enroll Now</a>
+        <a href="https://wa.me/919876543210" class="px-6 py-2 text-sm font-medium text-[#25D366] bg-[#25D366]/10 rounded-sm">WhatsApp Inquiry</a>
+        <button class="px-6 py-2 text-sm font-medium text-ink bg-canvas border border-hairline rounded-sm">Download Syllabus</button>
+      </div>
+    </div>
+  </dialog>
+))}
