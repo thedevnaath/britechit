@@ -40,13 +40,13 @@ const courses = [
         Industry-focused computer courses.
       </h3>
       <div class="flex justify-center md:justify-start gap-2">
-        <input type="text" placeholder="Search courses..." class="w-full md:w-80 px-4 py-2 bg-canvas-elevated border border-hairline rounded-sm text-sm text-ink focus:outline-none focus:border-mute transition-colors" />
+        <input type="text" id="course-search" placeholder="Search courses..." class="w-full md:w-80 px-4 py-2 bg-canvas-elevated border border-hairline rounded-sm text-sm text-ink focus:outline-none focus:border-mute transition-colors" />
       </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {courses.map(course => (
-        <div class="group bg-canvas-elevated border border-hairline rounded-md p-6 hover:border-mute transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col h-full">
+        <div class="course-card group bg-canvas-elevated border border-hairline rounded-md p-6 hover:border-mute transition duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col h-full">
           {/* Placeholder for Course Image */}
           <div class="w-full aspect-video bg-canvas border border-hairline rounded-sm mb-6 flex items-center justify-center">
              <span class="text-xs font-mono text-mute">[{course.id}-icon.jpg]</span>
@@ -138,3 +138,52 @@ const courses = [
     </div>
   </dialog>
 ))}
+
+<script>
+  const searchInput = document.getElementById('course-search');
+  const courseCards = Array.from(document.querySelectorAll('.course-card'));
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      // @ts-ignore
+      const searchTerm = e.target.value.toLowerCase().trim();
+
+      if (!searchTerm) {
+        courseCards.forEach((card) => {
+          // @ts-ignore
+          card.style.order = '0';
+          // @ts-ignore
+          card.style.display = 'flex';
+        });
+        return;
+      }
+
+      courseCards.forEach((card) => {
+        // @ts-ignore
+        const title = card.querySelector('h4').innerText.toLowerCase();
+        // @ts-ignore
+        const text = card.innerText.toLowerCase();
+        
+        let score = 0;
+        if (title.startsWith(searchTerm)) {
+          score = 3;
+        } else if (title.includes(searchTerm)) {
+          score = 2;
+        } else if (text.includes(searchTerm)) {
+          score = 1;
+        }
+
+        if (score > 0) {
+          // @ts-ignore
+          card.style.display = 'flex';
+          // Lower order value comes first in CSS grid
+          // @ts-ignore
+          card.style.order = -score; 
+        } else {
+          // @ts-ignore
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+</script>
