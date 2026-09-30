@@ -34,4 +34,17 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  
+  html.light {
+    --color-canvas: #ffffff;
+    --color-canvas-elevated: #f4f4f5;
+    --color-ink: #09090b;
+    --color-primary: #000000;
+    --color-on-primary: #ffffff;
+    --color-body: #52525b;
+    --color-mute: #71717a;
+    --color-faint: #d4d4d8;
+    --color-hairline: #e4e4e7;
+    --color-hairline-soft: #f4f4f5;
+  }
 }

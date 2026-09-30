@@ -1,9 +1,9 @@
 ---
-const logoPath = import.meta.env.DEV ? '/logo.jpg' : import.meta.env.BASE_URL + 'logo.jpg';
+import logoImage from '../assets/logo.jpg';
 ---
 <nav class="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-canvas/80 backdrop-blur-md border-b border-hairline">
   <div class="flex items-center gap-2">
-    <img src={logoPath} alt="BRITECH IT Logo" class="w-10 h-10 rounded-full object-cover shadow-sm" />
+    <img src={logoImage.src} alt="BRITECH IT Logo" class="w-10 h-10 rounded-full object-cover shadow-sm" />
     <span class="font-semibold text-lg tracking-tight hidden sm:block text-ink">BRITECH IT</span>
   </div>
   
@@ -17,6 +17,20 @@ const logoPath = import.meta.env.DEV ? '/logo.jpg' : import.meta.env.BASE_URL + 
   </div>
 
   <div class="flex items-center gap-3">
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="relative hidden md:flex items-center w-[52px] h-7 rounded-full bg-canvas-elevated border border-hairline p-1 transition-colors hover:border-hairline-soft focus:outline-none">
+      <!-- Sun -->
+      <div class="absolute left-1.5 z-0 flex items-center justify-center text-body">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </div>
+      <!-- Moon -->
+      <div class="absolute right-1.5 z-0 flex items-center justify-center text-body">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </div>
+      <!-- Handle -->
+      <div id="theme-toggle-slider" class="relative z-10 w-5 h-5 bg-ink rounded-full transition-transform duration-300 ease-in-out shadow-sm translate-x-[24px]"></div>
+    </button>
+
     <a href="tel:+919876543210" class="hidden md:flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-ink bg-transparent hover:bg-canvas-elevated rounded-sm transition-all">
       <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
       +91 98765 43210
@@ -29,3 +43,32 @@ const logoPath = import.meta.env.DEV ? '/logo.jpg' : import.meta.env.BASE_URL + 
     </a>
   </div>
 </nav>
+
+<script is:inline>
+  const toggle = document.getElementById('theme-toggle');
+  const slider = document.getElementById('theme-toggle-slider');
+  const html = document.documentElement;
+
+  // Check initial state
+  const isLight = localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: light)').matches);
+
+  if (isLight) {
+    html.classList.add('light');
+    slider.classList.remove('translate-x-[24px]');
+    slider.classList.add('translate-x-0');
+  }
+
+  toggle?.addEventListener('click', () => {
+    html.classList.toggle('light');
+    const isNowLight = html.classList.contains('light');
+    localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
+    
+    if (isNowLight) {
+      slider.classList.remove('translate-x-[24px]');
+      slider.classList.add('translate-x-0');
+    } else {
+      slider.classList.remove('translate-x-0');
+      slider.classList.add('translate-x-[24px]');
+    }
+  });
+</script>
