@@ -23,7 +23,24 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
-    <slot />
+  <body class="relative min-h-screen bg-canvas text-body selection:bg-link/30">
+    <!-- Static Grain Overlay -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-[0.4] mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+    
+    <!-- Dynamic Cursor Light -->
+    <div id="cursor-light" class="fixed inset-0 z-0 pointer-events-none transition-opacity duration-300 opacity-0 md:opacity-100" style="background: radial-gradient(circle 600px at 50% 50%, rgba(147, 51, 234, 0.15), transparent 80%);"></div>
+
+    <div class="relative z-10">
+      <slot />
+    </div>
+
+    <script>
+      const light = document.getElementById('cursor-light');
+      document.addEventListener('mousemove', (e) => {
+        if (light) {
+          light.style.background = `radial-gradient(circle 600px at ${e.clientX}px ${e.clientY}px, rgba(147, 51, 234, 0.12), transparent 80%)`;
+        }
+      });
+    </script>
   </body>
 </html>

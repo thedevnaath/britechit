@@ -1,16 +1,14 @@
 ---
+const logoPath = import.meta.env.DEV ? '/logo.jpg' : import.meta.env.BASE_URL + 'logo.jpg';
 ---
 <nav class="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-canvas/80 backdrop-blur-md border-b border-hairline">
   <div class="flex items-center gap-2">
-    <div class="w-8 h-8 rounded-sm bg-ink flex items-center justify-center text-on-primary font-bold text-xs shadow-sm">
-      {/* USER: Upload logo.jpg to public/ folder and replace this div with: <img src="/logo.jpg" alt="Logo" class="w-8 h-8 rounded-sm" /> */}
-      CC
-    </div>
-    <span class="font-semibold text-lg tracking-tight hidden sm:block text-ink">Britech Coaching</span>
+    <img src={logoPath} alt="BRITECH IT Logo" class="w-10 h-10 rounded-full object-cover shadow-sm" />
+    <span class="font-semibold text-lg tracking-tight hidden sm:block text-ink">BRITECH IT</span>
   </div>
   
   <div class="hidden lg:flex items-center gap-1">
-    <a href="/" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Home</a>
+    <a href="#" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Home</a>
     <a href="#courses" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Courses</a>
     <a href="#about" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">About Us</a>
     <a href="#why-us" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Why Choose Us</a>
