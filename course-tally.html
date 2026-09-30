@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - BRITECH IT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --brand-primary: #1e3a8a; --brand-secondary: #facc15; }
+        .text-brand-primary { color: var(--brand-primary); }
+        .bg-brand-primary { background-color: var(--brand-primary); }
+        .border-brand-primary { border-color: var(--brand-primary); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto py-12 px-4">
+        <a href="index.html" class="inline-flex items-center text-blue-600 mb-8"><i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Home</a>
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <img src="course-icon.jpg" alt="Course Icon" class="w-full aspect-video object-cover" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop'">
+            <div class="p-8">
+                <h1 class="text-3xl font-bold mb-4">Course Details</h1>
+                <p class="text-gray-600 mb-8">This is a dedicated detailed page for the course.</p>
+                <a href="index.html#contact" class="px-6 py-3 bg-green-600 text-white rounded-lg font-medium">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

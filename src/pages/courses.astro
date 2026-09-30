@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Courses from '../components/Courses.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="All Courses - BRITECH IT">
+  <div id="top" class="min-h-screen bg-canvas text-ink font-sans selection:bg-link-soft selection:text-link-deep scroll-smooth flex flex-col">
+    <Header />
+    
+    <main class="flex-grow pt-24">
+      <div class="text-center px-6">
+        <h1 class="text-4xl font-bold tracking-tight text-ink mb-4">All Courses</h1>
+        <p class="text-body text-lg max-w-2xl mx-auto">Browse our complete selection of industry-focused computer courses.</p>
+      </div>
+      
+      <Courses showViewAll={false} />
+    </main>
+
+    <Footer />
+  </div>
+</Layout>

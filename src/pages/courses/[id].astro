@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { courses } from '../../data/courses.js';
+
+export function getStaticPaths() {
+  return courses.map(course => ({
+    params: { id: course.id },
+    props: { course },
+  }));
+}
+
+const { course } = Astro.props;
+---
+<Layout title={`${course.title} - BRITECH IT`}>
+  <div id="top" class="min-h-screen bg-canvas text-ink font-sans selection:bg-link-soft selection:text-link-deep scroll-smooth flex flex-col">
+    <Header />
+    
+    <main class="flex-grow pt-24 pb-20">
+      <div class="max-w-4xl mx-auto px-6">
+        <a href="/britechit/courses" class="inline-flex items-center text-sm font-medium text-mute hover:text-ink mb-8 transition-colors">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          Back to Courses
+        </a>
+        
+        <div class="bg-canvas-elevated rounded-lg shadow-sm border border-hairline overflow-hidden">
+          <div class="w-full aspect-video bg-canvas border-b border-hairline flex items-center justify-center text-mute relative overflow-hidden">
+            <img src="/course-icon.jpg" alt={`${course.title} Icon`} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop'" />
+          </div>
+          
+          <div class="p-8 md:p-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-ink mb-6">{course.title}</h1>
+            
+            <div class="flex flex-wrap gap-4 mb-8">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                Duration: {course.duration}
+              </span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-canvas border border-hairline">
+                Mode: {course.mode}
+              </span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-canvas border border-hairline">
+                Eligibility: {course.eligibility}
+              </span>
+            </div>
+            
+            <div class="prose prose-slate max-w-none mb-12">
+              <h2 class="text-xl font-semibold text-ink mb-4">Course Overview</h2>
+              <p class="text-body text-lg leading-relaxed">{course.desc}</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+              <div class="bg-canvas p-6 rounded-sm border border-hairline">
+                <h3 class="font-semibold text-ink mb-3">What You'll Learn</h3>
+                <ul class="space-y-2 text-body">
+                  <li class="flex items-start"><svg class="w-5 h-5 text-primary shrink-0 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Module 1 Basics</li>
+                  <li class="flex items-start"><svg class="w-5 h-5 text-primary shrink-0 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Module 2 Advanced Concepts</li>
+                  <li class="flex items-start"><svg class="w-5 h-5 text-primary shrink-0 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Practical Assignments</li>
+                </ul>
+              </div>
+              <div class="bg-canvas p-6 rounded-sm border border-hairline">
+                <h3 class="font-semibold text-ink mb-3">Career Opportunities</h3>
+                <ul class="space-y-2 text-body">
+                  <li class="flex items-start"><svg class="w-5 h-5 text-primary shrink-0 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> IT Support Executive</li>
+                  <li class="flex items-start"><svg class="w-5 h-5 text-primary shrink-0 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Data Entry Operator</li>
+                  <li class="flex items-start"><svg class="w-5 h-5 text-primary shrink-0 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Office Assistant</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-hairline">
+              <div class="flex-grow flex items-center mb-4 sm:mb-0">
+                <span class="text-mute mr-4">Course Fee:</span>
+                <span class="text-2xl font-bold text-primary">{course.fee}</span>
+              </div>
+              <a href={`/britechit/#contact?course=${course.id}`} class="px-8 py-3 bg-primary text-on-primary font-medium rounded-sm text-center hover:opacity-90 transition-opacity">
+                Enroll Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</Layout>
