@@ -16,7 +16,7 @@ const faqs = [
 
     <div class="space-y-4">
       {faqs.map((faq, i) => (
-        <details class="group bg-canvas-elevated border border-hairline rounded-sm p-6 open:shadow-sm transition-all duration-300">
+        <details class="group bg-canvas-elevated border border-hairline rounded-sm p-6 open:shadow-sm transition-all duration-300 cursor-pointer">
           <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-ink text-lg">
             {faq.q}
             <span class="transition group-open:rotate-180">
@@ -31,3 +31,14 @@ const faqs = [
     </div>
   </div>
 </section>
+
+<script is:inline>
+  document.querySelectorAll('#faq details').forEach(details => {
+    details.addEventListener('click', (e) => {
+      if (e.target.closest('summary')) return;
+      if (window.getSelection().toString().length > 0) return;
+      e.preventDefault();
+      details.open = !details.open;
+    });
+  });
+</script>
