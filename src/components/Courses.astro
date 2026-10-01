@@ -2,7 +2,7 @@
 import { courses } from '../data/courses.js';
 const { showViewAll = true } = Astro.props;
 ---
-<section id="courses" class="py-24 px-6 bg-canvas border-t border-hairline relative">
+<section id="courses" class="py-24 px-6 bg-canvas relative">
   <div class="max-w-6xl mx-auto">
     <div class="mb-16 text-center md:text-left">
       <h2 class="text-xs font-mono uppercase tracking-widest text-mute mb-4">Our Programs</h2>
@@ -17,9 +17,10 @@ const { showViewAll = true } = Astro.props;
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="courses-grid">
       {courses.map(course => (
         <div class="course-card group bg-canvas-elevated border border-hairline rounded-md p-6 hover:border-mute transition duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col h-full">
-          {/* Placeholder for Course Image */}
-          <div class="w-full aspect-video bg-canvas border border-hairline rounded-sm mb-6 flex items-center justify-center">
+          {/* Course Image */}
+          <div class="w-full aspect-video bg-canvas border border-hairline rounded-sm mb-6 relative flex items-center justify-center overflow-hidden">
              <span class="text-xs font-mono text-mute">[{course.id}-icon.jpg]</span>
+             <img src={`/${course.id}-icon.jpg`} alt={`${course.title} Icon`} class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none';" />
           </div>
           
           <h4 class="text-xl font-semibold text-ink mb-2">{course.title}</h4>

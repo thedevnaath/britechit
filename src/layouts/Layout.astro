@@ -23,6 +23,46 @@ import faviconImage from '../assets/favicon.svg';
     <link rel="icon" type="image/svg+xml" href={faviconImage.src} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <!-- Flash-free section scroll: reads sessionStorage set by nav intercept in Header -->
+    <script is:inline>
+      (function () {
+        var target = sessionStorage.getItem('__nav_scroll_target');
+        // Also support direct hash navigation (e.g. bookmarks / page refresh with hash)
+        var hash = window.location.hash ? window.location.hash.slice(1) : null;
+        var scrollTo = target || hash;
+        if (!scrollTo) return;
+
+        // Kill smooth scrolling immediately — must happen before first paint
+        document.documentElement.style.scrollBehavior = 'auto';
+
+        // Hide body so absolutely nothing is visible until we scroll to the
+        // correct position. This style tag runs synchronously before any paint.
+        var style = document.createElement('style');
+        style.id = '__nav-hide';
+        style.textContent = 'body{opacity:0!important;transition:none!important}';
+        document.head.appendChild(style);
+
+        document.addEventListener('DOMContentLoaded', function () {
+          // Consume the stored target (don't scroll again on back-navigation)
+          if (target) sessionStorage.removeItem('__nav_scroll_target');
+
+          var el = document.getElementById(scrollTo);
+          if (el) {
+            el.scrollIntoView();
+          }
+
+          // Two rAF calls ensure the browser has committed the scroll position
+          // to the compositor before we reveal the page — zero flash guaranteed.
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              var hide = document.getElementById('__nav-hide');
+              if (hide) hide.remove();
+              document.documentElement.style.scrollBehavior = '';
+            });
+          });
+        }, { once: true });
+      })();
+    </script>
   </head>
   <body class="relative min-h-screen bg-canvas text-body selection:bg-link/30">
     <!-- Static Grain Overlay -->

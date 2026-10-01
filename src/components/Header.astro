@@ -1,5 +1,13 @@
 ---
 import logoImage from '../assets/logo.jpg';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/britechit"
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+const isHome = currentPath === base || currentPath === '';
+// On inner pages, href points to home root (no hash) — JS intercepts and uses sessionStorage.
+// On home page, href is a plain hash so normal in-page scroll works.
+const navHref = (section: string) => isHome ? `#${section}` : base + '/';
+const homeUrl = base + '/';
 ---
 <nav class="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-canvas/80 backdrop-blur-md border-b border-hairline">
   <div class="flex items-center gap-2">
@@ -8,12 +16,12 @@ import logoImage from '../assets/logo.jpg';
   </div>
   
   <div class="hidden lg:flex items-center gap-1">
-    <a href="#" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Home</a>
-    <a href="#courses" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Courses</a>
-    <a href="#about" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">About Us</a>
-    <a href="#why-us" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Why Choose Us</a>
-    <a href="#gallery" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Gallery</a>
-    <a href="#contact" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Contact</a>
+    <a href={navHref('top')} data-nav-section="top" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Home</a>
+    <a href={navHref('courses')} data-nav-section="courses" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Courses</a>
+    <a href={navHref('about')} data-nav-section="about" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">About Us</a>
+    <a href={navHref('why-us')} data-nav-section="why-us" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Why Choose Us</a>
+    <a href={navHref('gallery')} data-nav-section="gallery" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Gallery</a>
+    <a href={navHref('contact')} data-nav-section="contact" class="px-3 py-1.5 text-sm text-body rounded-full hover:bg-canvas-elevated hover:text-ink transition-colors">Contact</a>
   </div>
 
   <div class="flex items-center gap-3">
@@ -38,7 +46,7 @@ import logoImage from '../assets/logo.jpg';
     <a href="https://wa.me/919876543210" target="_blank" class="hidden md:flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-[#25D366] bg-[#25D366]/10 hover:bg-[#25D366]/20 rounded-sm transition-all">
       WhatsApp
     </a>
-    <a href="#contact" class="px-4 py-1.5 text-sm font-medium text-on-primary bg-primary hover:opacity-90 rounded-sm transition-opacity shadow-sm">
+    <a href={navHref('contact')} data-nav-section="contact" class="px-4 py-1.5 text-sm font-medium text-on-primary bg-primary hover:opacity-90 rounded-sm transition-opacity shadow-sm">
       Enquire Now
     </a>
   </div>
@@ -71,4 +79,22 @@ import logoImage from '../assets/logo.jpg';
       slider.classList.add('translate-x-[24px]');
     }
   });
+
+  // Intercept nav clicks on inner pages: store target section in sessionStorage
+  // and navigate to home WITHOUT a hash so the browser never does its native
+  // hash-scroll (which causes the hero-flash).
+  (function () {
+    var isHome = window.location.pathname.replace(/\/$/, '') === '/britechit' ||
+                 window.location.pathname.replace(/\/$/, '') === '';
+    if (isHome) return; // on home page, normal hash links work fine
+
+    document.querySelectorAll('[data-nav-section]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var section = link.getAttribute('data-nav-section');
+        sessionStorage.setItem('__nav_scroll_target', section);
+        window.location.href = link.getAttribute('href');
+      });
+    });
+  })();
 </script>
