@@ -1,4 +1,4 @@
-// BRITECH IT Custom JavaScript
+﻿// BRITECH IT Custom JavaScript
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide Icons
@@ -86,7 +86,7 @@ window.submitToWhatsApp = function() {
     const batch = document.getElementById('batch').value;
     const message = document.getElementById('message').value;
 
-    const targetWhatsAppNumber = "919876543210";
+    const targetWhatsAppNumber = "919933242072";
 
     let whatsappMessage = `*New Admission Enquiry*\n\n`;
     whatsappMessage += `*Name:* ${name}\n`;

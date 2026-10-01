@@ -20,7 +20,7 @@ const { showViewAll = true } = Astro.props;
           {/* Course Image */}
           <div class="w-full aspect-video bg-canvas border border-hairline rounded-sm mb-6 relative flex items-center justify-center overflow-hidden">
              <span class="text-xs font-mono text-mute">[{course.id}-icon.jpg]</span>
-             <img src={`/${course.id}-icon.jpg`} alt={`${course.title} Icon`} class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none';" />
+             <img src={`/britechit/${course.id}-icon.jpg`} alt={`${course.title} Icon`} class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none';" />
           </div>
           
           <h4 class="text-xl font-semibold text-ink mb-2">{course.title}</h4>

@@ -17,8 +17,8 @@ const images = [
       {images.map(img => (
         <div class="aspect-square bg-canvas-elevated border border-hairline rounded-sm overflow-hidden flex items-center justify-center relative group hover:border-mute transition-colors">
           <span class="text-xs font-mono text-mute z-10 bg-canvas/80 px-2 py-1 rounded backdrop-blur-sm">[{img}]</span>
-          {/* USER: Replace this div with an actual image tag pointing to /images/{img} */}
-          <div class="absolute inset-0 group-hover:bg-ink/5 transition-colors"></div>
+          <img src={`/britechit/${img}`} alt="Gallery Image" class="absolute inset-0 w-full h-full object-cover z-20" onerror="this.style.display='none';" />
+          <div class="absolute inset-0 group-hover:bg-ink/5 transition-colors z-30 pointer-events-none"></div>
         </div>
       ))}
     </div>
